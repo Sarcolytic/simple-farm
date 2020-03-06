@@ -5,13 +5,6 @@ const common = require('./webpack.common.js');
 module.exports = merge (common, {
     mode: 'production',
     devtool: 'none',
-    module: {
-        rules: [{
-            test: /\.js$/,
-            exclude: /node_modules/,
-            loader: 'babel-loader',
-        }]
-    },
     optimization: {
         minimize: true,
         minimizer: [
