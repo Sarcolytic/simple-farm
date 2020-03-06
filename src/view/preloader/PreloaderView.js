@@ -2,7 +2,7 @@ import { Container, Sprite, Texture } from 'pixi.js';
 import WebFont from 'webfontloader';
 import { LoadingBar } from './LoadingBar';
 import { GameSize } from '../../utils/GameConstants';
-import gsap from 'gsap';
+import Assets from '../../utils/Assets';
 
 export class PreloaderView extends Container {
     static EVENT_LOADED = Symbol();
@@ -24,27 +24,17 @@ export class PreloaderView extends Container {
         this.addChild(this._progressBar);
     }
 
-    start() {
+    async start() {
+        this._progressBar.setProgress(0.5);
+        await Assets.load();
+
         WebFont.load({
             custom: {
                 families: ['Open Sans'],
                 urls: ['fonts/fonts.css'],
             },
             active: () => {
-                this.emit(PreloaderView.EVENT_LOADED);
-            },
-        });
-    }
-
-    emulateLoading() {
-        const tweenTarget = { progress: 0 };
-        gsap.to(tweenTarget, {
-            progress: 1,
-            duration: 5,
-            onUpdate: () => {
-                this._progressBar.setProgress(tweenTarget.progress);
-            },
-            onComplete: () => {
+                this._progressBar.setProgress(1);
                 this.emit(PreloaderView.EVENT_LOADED);
             },
         });

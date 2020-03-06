@@ -28,7 +28,7 @@ class Game {
         this._preloader = new PreloaderView();
         this._app.stage.addChild(this._preloader);
         this._preloader.on(PreloaderView.EVENT_LOADED, this.onLoaded, this);
-        this._preloader.emulateLoading();
+        this._preloader.start();
     }
 
     onLoaded() {

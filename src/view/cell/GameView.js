@@ -1,6 +1,7 @@
 import { Container, Graphics, Sprite, Texture } from 'pixi.js';
 import { GameSize } from '../../utils/GameConstants';
 import { CellView } from './CellView';
+import { ControlPanelView } from '../control-panel/ControlPanelView';
 
 export class GameView extends Container {
     constructor() {
@@ -13,6 +14,7 @@ export class GameView extends Container {
         this.addChild(bg);
 
         this.createField(8, 8);
+        this.createControlPanel();
     }
 
     /**
@@ -43,6 +45,14 @@ export class GameView extends Container {
             .endFill();
         border.position.set(-1);
         container.addChildAt(border, 0);
+    }
 
+    createControlPanel() {
+        this._controlPanel = new ControlPanelView();
+        this._controlPanel.position.set(
+            (GameSize.WIDTH - this._controlPanel.width) * 0.5,
+            GameSize.HEIGHT - 30,
+        );
+        this.addChild(this._controlPanel);
     }
 }
