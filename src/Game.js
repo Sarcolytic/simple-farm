@@ -2,13 +2,14 @@ import { Application, Ticker } from 'pixi.js';
 import gsap from 'gsap';
 import { GameSize } from './utils/GameConstants';
 import { PreloaderView } from './view/preloader/PreloaderView';
+import { GameView } from './view/cell/GameView';
 
 class Game {
     constructor() {
         this._app = new Application({
             width: GameSize.WIDTH,
             height: GameSize.HEIGHT,
-            backgroundColor: 0xa2653e,
+            backgroundColor: 0x000000,
             view: document.getElementById('game'),
         });
 
@@ -32,6 +33,9 @@ class Game {
 
     onLoaded() {
         this._app.stage.removeChild(this._preloader);
+
+        this._gameView = new GameView();
+        this._app.stage.addChild(this._gameView);
     }
 }
 
