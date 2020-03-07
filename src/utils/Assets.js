@@ -1,25 +1,23 @@
 import { Loader } from 'pixi.js';
 
 class Assets {
-    constructor() {
-        this._loader = new Loader();
-    }
-
     /**
      * @return {Promise}
      */
     load() {
-        this._loader.add(
-            'texture',
+        const id = 'texture';
+        const loader = new Loader();
+        loader.add(
+            id,
             'img/texture.json',
             undefined,
             () => {
-                this._textures = { ...this._loader.resources['texture'].textures };
+                this._textures = { ...loader.resources[id].textures };
             },
         );
 
         return new Promise((resolve) => {
-            this._loader.load(resolve);
+            loader.load(resolve);
         });
     }
 
