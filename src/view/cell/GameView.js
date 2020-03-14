@@ -55,4 +55,11 @@ export class GameView extends Container {
         );
         this.addChild(this._controlPanel);
     }
+
+    /**
+     * @return {ControlPanelView}
+     */
+    getControlPanel() {
+        return this._controlPanel;
+    }
 }

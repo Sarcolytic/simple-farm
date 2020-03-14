@@ -1,8 +1,9 @@
 import { Container, Sprite } from 'pixi.js';
 import Assets from '../../utils/Assets';
-import { gsap, Power2 } from 'gsap';
 
 export class ControlPanelItemView extends Container {
+    static EVENT_SELECTED = Symbol();
+
     /**
      * @param {string} iconId
      */
@@ -13,48 +14,12 @@ export class ControlPanelItemView extends Container {
         icon.anchor.set(0.5);
         this.addChild(icon);
 
-        icon.interactive = true;
-        icon.buttonMode = true;
-        icon.on('pointerover', this.onPointerOver, this);
-        icon.on('pointerout', this.onPointerOut, this);
-        icon.on('pointertap', this.onPointerTap, this);
+        this._selected = false;
     }
 
-    onPointerOver() {
-        this.killActiveTween();
+    toggleSelected() {
+        this._selected = !this._selected;
 
-        const tweenTarget = { scale: this.scale.x };
-        this._activeTween = gsap.to(tweenTarget, {
-            scale: 1.3,
-            duration: 0.2,
-            ease: Power2.easeOut,
-            onUpdate: () => {
-                this.scale.set(tweenTarget.scale);
-            },
-        });
-    }
-
-    onPointerOut() {
-        this.killActiveTween();
-
-        const tweenTarget = { scale: this.scale.x };
-        this._activeTween = gsap.to(tweenTarget, {
-            scale: 1,
-            duration: 0.2,
-            ease: Power2.easeOut,
-            onUpdate: () => {
-                this.scale.set(tweenTarget.scale);
-            },
-        });
-    }
-
-    onPointerTap() {
-        this.killActiveTween();
-    }
-
-    killActiveTween() {
-        if (this._activeTween !== undefined) {
-            this._activeTween.kill();
-        }
+        this.scale.set(this._selected ? 1.3 : 1);
     }
 }

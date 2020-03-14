@@ -3,6 +3,8 @@ import gsap from 'gsap';
 import { GameSize } from './utils/GameConstants';
 import { PreloaderView } from './view/preloader/PreloaderView';
 import { GameView } from './view/cell/GameView';
+import { ControlPanelController } from './controller/ControlPanelController';
+import { ControlPanelModel } from './model/ControlPanelModel';
 
 class Game {
     constructor() {
@@ -36,6 +38,13 @@ class Game {
 
         this._gameView = new GameView();
         this._app.stage.addChild(this._gameView);
+
+
+        const controlPanelModel = new ControlPanelModel();
+        new ControlPanelController(
+            controlPanelModel,
+            this._gameView.getControlPanel(),
+        );
     }
 }
 
