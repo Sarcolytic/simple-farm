@@ -1,10 +1,9 @@
 import { Container, Graphics } from 'pixi.js';
 import { ControlPanelItemView } from './ControlPanelItemView';
 import { ControlPanelItems } from '../../model/ControlPanelItems';
+import { ControlPanelEvents } from '../../events/ControlPanelEvents';
 
 export class ControlPanelView extends Container {
-    static EVENT_ITEM_SELECTED = Symbol();
-
     constructor() {
         super();
 
@@ -25,8 +24,7 @@ export class ControlPanelView extends Container {
             item.interactive = true;
             item.buttonMode = true;
             item.on('pointertap', () => {
-                console.log('event');
-                this.emit(ControlPanelView.EVENT_ITEM_SELECTED, id);
+                this.emit(ControlPanelEvents.ITEM_SELECTED, id);
             });
             this.addChild(item);
 

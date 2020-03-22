@@ -2,9 +2,8 @@ import { Application, Ticker } from 'pixi.js';
 import gsap from 'gsap';
 import { GameSize } from './utils/GameConstants';
 import { PreloaderView } from './view/preloader/PreloaderView';
-import { GameView } from './view/cell/GameView';
-import { ControlPanelController } from './controller/ControlPanelController';
-import { ControlPanelModel } from './model/ControlPanelModel';
+import { GameView } from './view/GameView';
+import { GameController } from './controller/GameController';
 
 class Game {
     constructor() {
@@ -36,15 +35,10 @@ class Game {
     onLoaded() {
         this._app.stage.removeChild(this._preloader);
 
-        this._gameView = new GameView();
-        this._app.stage.addChild(this._gameView);
+        const gameView = new GameView();
+        this._app.stage.addChild(gameView);
 
-
-        const controlPanelModel = new ControlPanelModel();
-        new ControlPanelController(
-            controlPanelModel,
-            this._gameView.getControlPanel(),
-        );
+        new GameController(gameView);
     }
 }
 
