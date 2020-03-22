@@ -1,11 +1,18 @@
-export class FieldController {
+import { FieldEvents } from '../events/FieldEvents';
+import { utils } from 'pixi.js';
+
+export class FieldController extends utils.EventEmitter {
     /**
      * @param {FieldModel} model
      * @param {FieldView} view
      */
     constructor(model, view) {
+        super();
+
         this._model = model;
         this._view = view;
+
+        this._view.on(FieldEvents.CELL_CLICK, this.onCellClicked, this);
     }
 
     showEmptyCells() {
@@ -17,5 +24,21 @@ export class FieldController {
 
     hideCellsHighlight() {
         this._view.hideHighlightCells();
+    }
+
+    onCellClicked(position) {
+        this._clickedPosition = position;
+
+        this.emit(FieldEvents.CELL_CLICK);
+    }
+
+    /**
+     * @param {string} item
+     */
+    placeItem(item) {
+        this._model.place(this._clickedPosition, item);
+        this._view.place(this._clickedPosition, item);
+
+        this._clickedPosition = undefined;
     }
 }

@@ -33,4 +33,11 @@ export class ControlPanelController extends utils.EventEmitter {
 
         this.emit(isReset ? ControlPanelEvents.RESET_SELECTION : ControlPanelEvents.ITEM_SELECTED);
     }
+
+    /**
+     * @return {string|undefined}
+     */
+    getSelected() {
+        return this._model.getSelected();
+    }
 }

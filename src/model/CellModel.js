@@ -14,4 +14,12 @@ export class CellModel {
     getPosition() {
         return this._position;
     }
+
+    /**
+     * @param {string} item
+     */
+    place(item) {
+        this._item = item;
+        this._isEmpty = false;
+    }
 }

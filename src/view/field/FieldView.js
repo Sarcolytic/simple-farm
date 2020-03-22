@@ -1,6 +1,7 @@
 import { Container, Graphics, Point } from 'pixi.js';
 import { FieldSize } from '../../utils/GameConstants';
 import { CellView } from './CellView';
+import { FieldEvents } from '../../events/FieldEvents';
 
 export class FieldView extends Container {
     constructor() {
@@ -12,6 +13,7 @@ export class FieldView extends Container {
             for (let j = 0; j < FieldSize.HEIGHT; j++) {
                 const cell = new CellView(new Point(i, j));
                 cell.position.set(i * cell.width, j * cell.height);
+                cell.on('pointertap', () => { this.onCellClicked(cell); });
                 this.addChild(cell);
                 this._cells[i].push(cell);
             }
@@ -41,5 +43,20 @@ export class FieldView extends Container {
                 this._cells[i][j].highlight(false);
             }
         }
+    }
+
+    /**
+     * @param {CellView} cell
+     */
+    onCellClicked(cell) {
+        this.emit(FieldEvents.CELL_CLICK, cell.getFieldPosition());
+    }
+
+    /**
+     * @param {PIXI.Point} position
+     * @param {string} item
+     */
+    place({ x, y }, item) {
+        this._cells[x][y].place(item);
     }
 }

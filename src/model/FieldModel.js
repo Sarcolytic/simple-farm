@@ -17,4 +17,27 @@ export class FieldModel {
         const empty =  this._cells.filter(cell => cell.isEmpty());
         return empty.map(cell => cell.getPosition());
     }
+
+    /**
+     * @param {PIXI.Point} position
+     * @param {string} item
+     */
+    place({ x, y }, item) {
+        const cell = this.getCellByPosition(x, y);
+        if (cell) {
+            cell.place(item);
+        }
+    }
+
+    /**
+     * @param {number} row
+     * @param {number} column
+     * @return {CellModel|undefined}
+     */
+    getCellByPosition(row, column) {
+        return this._cells.find(cell => {
+            const { x, y } = cell.getPosition();
+            return x === row && y === column;
+        });
+    }
 }

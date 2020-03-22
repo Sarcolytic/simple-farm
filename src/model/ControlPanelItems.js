@@ -1,5 +1,5 @@
 export const ControlPanelItems = {
-    wheat: 'wheat',
-    chicken: 'chicken',
-    cow: 'cow',
+    WHEAT: 'wheat',
+    CHICKEN: 'chicken',
+    COW: 'cow',
 };
