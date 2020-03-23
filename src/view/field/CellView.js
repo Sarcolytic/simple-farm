@@ -1,6 +1,4 @@
 import { Container, Graphics, Rectangle, Sprite, Texture } from 'pixi.js';
-import { ControlPanelItems } from '../../model/ControlPanelItems';
-import { WheatCellView } from './WheatCellView';
 
 export class CellView extends Container {
     static SIZE = 45;
@@ -41,24 +39,13 @@ export class CellView extends Container {
         return this._fieldPosition;
     }
 
+    /**
+     * @param {PIXI.Container} item
+     */
     place(item) {
-        switch (item) {
-        case ControlPanelItems.WHEAT:
-            this.addWheat();
-            break;
-        case ControlPanelItems.CHICKEN:
-            break;
-        case ControlPanelItems.COW:
-            break;
-        default:
-                // throw new Error(`${item}is unsupported!`);
-        }
-        this.highlight(false);
-    }
+        item.position.set(CellView.SIZE / 2, CellView.SIZE / 2);
+        this.addChild(item);
 
-    addWheat() {
-        const wheat = new WheatCellView();
-        wheat.position.set(CellView.SIZE / 2, CellView.SIZE / 2);
-        this.addChild(wheat);
+        this.highlight(false);
     }
 }

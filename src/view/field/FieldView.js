@@ -2,6 +2,7 @@ import { Container, Graphics, Point } from 'pixi.js';
 import { FieldSize } from '../../utils/GameConstants';
 import { CellView } from './CellView';
 import { FieldEvents } from '../../events/FieldEvents';
+import { FieldItemsFactory } from './FieldItemsFactory';
 
 export class FieldView extends Container {
     constructor() {
@@ -54,9 +55,10 @@ export class FieldView extends Container {
 
     /**
      * @param {PIXI.Point} position
-     * @param {string} item
+     * @param {string} itemType
      */
-    place({ x, y }, item) {
+    place({ x, y }, itemType) {
+        const item = FieldItemsFactory.create(itemType);
         this._cells[x][y].place(item);
     }
 }

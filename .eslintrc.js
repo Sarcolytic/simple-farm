@@ -30,7 +30,7 @@ module.exports = {
         'object-curly-spacing': ['error', 'always'],
         'eol-last': ['error', 'always'],
         'lines-between-class-members': ['error', 'always', { 'exceptAfterSingleLine': true }],
-        'indent': ['error', 4],
+        'indent': ['error', 4, { "SwitchCase": 1 }],
         'import/no-cycle': 'error',
         'max-classes-per-file': 'error',
         'prefer-template': 'error',

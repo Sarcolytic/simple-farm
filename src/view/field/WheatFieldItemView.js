@@ -2,7 +2,7 @@ import { Container, Sprite } from 'pixi.js';
 import Assets from '../../utils/Assets';
 import { gsap, Power3 } from 'gsap';
 
-export class WheatCellView extends Container {
+export class WheatFieldItemView extends Container {
     static GROW_TIME = 10;
 
     constructor() {
@@ -23,7 +23,7 @@ export class WheatCellView extends Container {
 
     startGrow() {
         gsap.to(this._wheat.scale, {
-            x: 1, y: 1, ease: Power3.easeOut, duration: WheatCellView.GROW_TIME,
+            x: 1, y: 1, ease: Power3.easeOut, duration: WheatFieldItemView.GROW_TIME,
             onComplete: this.onGrew,
         });
     }
