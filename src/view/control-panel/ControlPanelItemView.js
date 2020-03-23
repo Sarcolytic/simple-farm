@@ -2,8 +2,6 @@ import { Container, Sprite } from 'pixi.js';
 import Assets from '../../utils/Assets';
 
 export class ControlPanelItemView extends Container {
-    static EVENT_SELECTED = Symbol();
-
     /**
      * @param {string} iconId
      */

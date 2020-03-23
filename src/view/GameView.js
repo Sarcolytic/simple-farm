@@ -2,6 +2,7 @@ import { Container, Sprite, Texture } from 'pixi.js';
 import { GameSize } from '../utils/GameConstants';
 import { ControlPanelView } from './control-panel/ControlPanelView';
 import { FieldView } from './field/FieldView';
+import { ResourcesPanelView } from './resources-panel/ResourcesPanelView';
 
 export class GameView extends Container {
     constructor() {
@@ -15,6 +16,7 @@ export class GameView extends Container {
 
         this.createField();
         this.createControlPanel();
+        this.createResourcesPanel();
     }
 
     createField() {
@@ -34,6 +36,12 @@ export class GameView extends Container {
             GameSize.HEIGHT - 30,
         );
         this.addChild(this._controlPanel);
+    }
+
+    createResourcesPanel() {
+        this._resourcesPanel = new ResourcesPanelView();
+        this._resourcesPanel.position.set(760, 200);
+        this.addChild(this._resourcesPanel);
     }
 
     /**
