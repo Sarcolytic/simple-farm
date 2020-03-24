@@ -1,3 +1,5 @@
+import { FieldItemCanEat } from './FieldItemTypes';
+
 export class CellModel {
     /**
      * @param {PIXI.Point} position
@@ -21,5 +23,9 @@ export class CellModel {
     place(item) {
         this._item = item;
         this._isEmpty = false;
+    }
+
+    canEat() {
+        return this._item && FieldItemCanEat.includes(this._item);
     }
 }

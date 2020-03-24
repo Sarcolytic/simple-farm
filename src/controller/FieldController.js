@@ -22,6 +22,13 @@ export class FieldController extends utils.EventEmitter {
         }
     }
 
+    showCanEatCells() {
+        const cells = this._model.getCellsCanEat();
+        if (cells.length > 0) {
+            this._view.highlightCells(cells);
+        }
+    }
+
     hideCellsHighlight() {
         this._view.hideHighlightCells();
     }
@@ -40,5 +47,9 @@ export class FieldController extends utils.EventEmitter {
         this._view.place(this._clickedPosition, item);
 
         this._clickedPosition = undefined;
+    }
+
+    startEating() {
+        this._view.startEating(this._clickedPosition);
     }
 }

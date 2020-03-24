@@ -1,12 +1,21 @@
-import { Container, Sprite } from 'pixi.js';
-import Assets from '../../utils/Assets';
+import { AnimalFieldItemView } from './AnimalFieldItemView';
+import { FieldItemTypes } from '../../model/FieldItemTypes';
+import GameEventEmitter from '../../utils/GameEventEmitter';
+import { FieldEvents } from '../../events/FieldEvents';
+import { ResourceTypes } from '../../model/ResourceTypes';
 
-export class ChickenFieldItemView extends Container {
+export class ChickenFieldItemView extends AnimalFieldItemView {
     constructor() {
-        super();
+        super(FieldItemTypes.CHICKEN, 10, 3);
+    }
 
-        this._item = new Sprite(Assets.texture('chicken'));
-        this._item.anchor.set(0.5);
-        this.addChild(this._item);
+    onEatCompleted() {
+        super.onEatCompleted();
+
+        GameEventEmitter.emit(FieldEvents.ITEM_COLLECTED, ResourceTypes.EGG);
+
+        if (this._currentEatCount < 3) {
+            this.startEat();
+        }
     }
 }

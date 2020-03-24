@@ -29,6 +29,11 @@ export class FieldModel {
         }
     }
 
+    getCellsCanEat() {
+        const canEat = this._cells.filter(cell => cell.canEat());
+        return canEat.map(cell => cell.getPosition());
+    }
+
     /**
      * @param {number} row
      * @param {number} column

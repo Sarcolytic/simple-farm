@@ -40,9 +40,16 @@ export class BasePanelController extends utils.EventEmitter{
     }
 
     /**
-     * @return {string|undefined}
+     * @return {string}
      */
     getSelected() {
         return this._model.getSelected();
+    }
+
+    /**
+     * @return {boolean}
+     */
+    hasSelected() {
+        return this._model.getSelected() !== undefined;
     }
 }

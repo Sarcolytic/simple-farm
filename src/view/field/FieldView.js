@@ -61,4 +61,11 @@ export class FieldView extends Container {
         const item = FieldItemsFactory.create(itemType);
         this._cells[x][y].place(item);
     }
+
+    /**
+     * @param {PIXI.Point} position
+     */
+    startEating({ x, y }) {
+        this._cells[x][y].eat();
+    }
 }

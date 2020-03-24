@@ -46,6 +46,12 @@ export class CellView extends Container {
         item.position.set(CellView.SIZE / 2, CellView.SIZE / 2);
         this.addChild(item);
 
+        this._item = item;
+
         this.highlight(false);
+    }
+
+    eat() {
+        this._item.eat();
     }
 }

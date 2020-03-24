@@ -39,6 +39,7 @@ export class GameController {
 
     onControlPanelItemSelected() {
         this._resourcesPanelController.resetSelected();
+        this._fieldController.hideCellsHighlight();
         this._fieldController.showEmptyCells();
     }
 
@@ -49,12 +50,15 @@ export class GameController {
     onResourcePanelItemSelected() {
         this._controlPanelController.resetSelected();
         this._fieldController.hideCellsHighlight();
+        this._fieldController.showCanEatCells();
     }
 
     onFieldCellClicked() {
-        const selected = this._controlPanelController.getSelected();
-        if (selected !== undefined) {
-            this._fieldController.placeItem(selected);
+        if (this._controlPanelController.hasSelected()) {
+            this._fieldController.placeItem(this._controlPanelController.getSelected());
+        } else if (this._resourcesPanelController.hasSelected()) {
+            this._resourcesPanelController.addItemValue(this._resourcesPanelController.getSelected(), -1);
+            this._fieldController.startEating();
         }
     }
 

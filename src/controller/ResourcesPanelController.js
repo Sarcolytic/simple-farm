@@ -1,4 +1,5 @@
 import { BasePanelController } from './BasePanelController';
+import { PanelEvents } from '../events/PanelEvents';
 
 export class ResourcesPanelController extends BasePanelController {
     /**
@@ -7,6 +8,8 @@ export class ResourcesPanelController extends BasePanelController {
      */
     constructor(model, view) {
         super(model, view);
+
+        view.on(PanelEvents.RESET_SELECTION, () => { this.emit(PanelEvents.RESET_SELECTION); });
     }
 
     /**
@@ -15,5 +18,12 @@ export class ResourcesPanelController extends BasePanelController {
      */
     addItemValue(itemType, num) {
         this._view.addItemValue(itemType, num);
+    }
+
+    /**
+     * @param {string} itemType
+     */
+    decreaseItemValue(itemType) {
+        this._view.addItemValue(itemType, -1);
     }
 }
