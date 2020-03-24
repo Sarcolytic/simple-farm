@@ -1,5 +1,7 @@
 import { ResourceView } from './ResourceView';
 import { SellButton } from './SellButton';
+import GameEventEmitter from '../../utils/GameEventEmitter';
+import { PanelEvents } from '../../events/PanelEvents';
 
 export class SellableResourceView extends ResourceView{
     /**
@@ -14,12 +16,18 @@ export class SellableResourceView extends ResourceView{
         this._sellButton = new SellButton(cost);
         this.addChild(this._sellButton);
         this._sellButton.position.set(-Math.round(this._sellButton.width / 2), 15);
+        this._sellButton.on('pointertap', this.sell, this);
     }
 
-    /**
-     * @return {number}
-     */
-    getCost() {
-        return this._cost;
+    addValue(num) {
+        super.addValue(num);
+
+        this._sellButton.setEnabled(this._value.getCurrent() > 0);
+    }
+
+    sell() {
+        this.addValue(-1);
+
+        GameEventEmitter.emit(PanelEvents.ITEM_SOLD, this._cost);
     }
 }

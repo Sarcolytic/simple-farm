@@ -3,6 +3,7 @@ import { GameSize } from '../utils/GameConstants';
 import { ControlPanelView } from './control-panel/ControlPanelView';
 import { FieldView } from './field/FieldView';
 import { ResourcesPanelView } from './resources-panel/ResourcesPanelView';
+import { MoneyPanelView } from './MoneyPanelView';
 
 export class GameView extends Container {
     constructor() {
@@ -17,6 +18,7 @@ export class GameView extends Container {
         this.createField();
         this.createControlPanel();
         this.createResourcesPanel();
+        this.createMoneyPanel();
     }
 
     createField() {
@@ -42,6 +44,12 @@ export class GameView extends Container {
         this._resourcesPanel = new ResourcesPanelView();
         this._resourcesPanel.position.set(760, 200);
         this.addChild(this._resourcesPanel);
+    }
+
+    createMoneyPanel() {
+        const moneyPanel = new MoneyPanelView();
+        moneyPanel.position.set(GameSize.WIDTH * 0.5, 30);
+        this.addChild(moneyPanel);
     }
 
     /**
