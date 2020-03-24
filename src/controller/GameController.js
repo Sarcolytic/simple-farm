@@ -1,9 +1,11 @@
-import { ControlPanelModel } from '../model/ControlPanelModel';
-import { ControlPanelController } from './ControlPanelController';
 import { FieldModel } from '../model/FieldModel';
 import { FieldController } from './FieldController';
-import { ControlPanelEvents } from '../events/ControlPanelEvents';
+import { PanelEvents } from '../events/PanelEvents';
 import { FieldEvents } from '../events/FieldEvents';
+import { ResourcesPanelController } from './ResourcesPanelController';
+import GameEventEmitter from '../utils/GameEventEmitter';
+import { BasePanelController } from './BasePanelController';
+import { BasePanelModel } from '../model/BasePanelModel';
 
 export class GameController {
     /**
@@ -12,32 +14,51 @@ export class GameController {
     constructor(view) {
         this._view = view;
 
-        this._controlPanelController = new ControlPanelController(
-            new ControlPanelModel(),
+        this._controlPanelController = new BasePanelController(
+            new BasePanelModel(),
             this._view.getControlPanel(),
         );
-        this._controlPanelController.on(ControlPanelEvents.ITEM_SELECTED, this.onControlPanelItemSelected, this);
-        this._controlPanelController.on(ControlPanelEvents.RESET_SELECTION, this.onControlPanelReset, this);
+        this._controlPanelController.on(PanelEvents.ITEM_SELECTED, this.onControlPanelItemSelected, this);
+        this._controlPanelController.on(PanelEvents.RESET_SELECTION, this.onPanelReset, this);
 
         this._fieldController = new FieldController(
             new FieldModel(),
             this._view.getField(),
         );
-        this._fieldController.on(FieldEvents.CELL_CLICK, this.onSomeCellClicked, this);
+        this._fieldController.on(FieldEvents.CELL_CLICK, this.onFieldCellClicked, this);
+
+        this._resourcesPanelController = new ResourcesPanelController(
+            new BasePanelModel(),
+            this._view.getResourcesPanel(),
+        );
+        this._resourcesPanelController.on(PanelEvents.ITEM_SELECTED, this.onResourcePanelItemSelected, this);
+        this._resourcesPanelController.on(PanelEvents.RESET_SELECTION, this.onPanelReset, this);
+
+        GameEventEmitter.on(FieldEvents.ITEM_COLLECTED, this.onFieldItemCollected, this);
     }
 
     onControlPanelItemSelected() {
+        this._resourcesPanelController.resetSelected();
         this._fieldController.showEmptyCells();
     }
 
-    onControlPanelReset() {
+    onPanelReset() {
         this._fieldController.hideCellsHighlight();
     }
 
-    onSomeCellClicked() {
+    onResourcePanelItemSelected() {
+        this._controlPanelController.resetSelected();
+        this._fieldController.hideCellsHighlight();
+    }
+
+    onFieldCellClicked() {
         const selected = this._controlPanelController.getSelected();
         if (selected !== undefined) {
             this._fieldController.placeItem(selected);
         }
+    }
+
+    onFieldItemCollected(itemType) {
+        this._resourcesPanelController.addItemValue(itemType, 1);
     }
 }

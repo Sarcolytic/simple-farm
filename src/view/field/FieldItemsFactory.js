@@ -1,4 +1,4 @@
-import { ControlPanelItems } from '../../model/ControlPanelItems';
+import { FieldItemTypes } from '../../model/FieldItemTypes';
 import { WheatFieldItemView } from './WheatFieldItemView';
 import { ChickenFieldItemView } from './ChickenFieldItemView';
 import { CowFieldItemView } from './CowFieldItemView';
@@ -7,13 +7,13 @@ export class FieldItemsFactory {
     static create(itemType) {
         let item;
         switch (itemType) {
-            case ControlPanelItems.WHEAT:
+            case FieldItemTypes.WHEAT:
                 item = new WheatFieldItemView();
                 break;
-            case ControlPanelItems.CHICKEN:
+            case FieldItemTypes.CHICKEN:
                 item = new ChickenFieldItemView();
                 break;
-            case ControlPanelItems.COW:
+            case FieldItemTypes.COW:
                 item = new CowFieldItemView();
                 break;
             default:

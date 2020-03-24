@@ -7,7 +7,10 @@ export class SellButton extends Container {
         OVER: 2,
     }
 
-    constructor() {
+    /**
+     * @param {number} cost
+     */
+    constructor(cost) {
         super();
 
         this._states = [];
@@ -23,7 +26,7 @@ export class SellButton extends Container {
             fontSize: 14,
             fill: 0xffffff,
         });
-        const label = new Text('SELL', labelStyle);
+        const label = new Text(`$ ${cost}`, labelStyle);
         label.roundPixels = true;
         label.anchor.set(0.5);
         label.position.set(25, 10);

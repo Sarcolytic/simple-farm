@@ -1,6 +1,6 @@
 import { Container, Sprite } from 'pixi.js';
 import Assets from '../../utils/Assets';
-import { ResourceCounter } from './ResourceCounter';
+import { ResourceValue } from './ResourceValue';
 
 export class ResourceView extends Container {
     /**
@@ -9,12 +9,24 @@ export class ResourceView extends Container {
     constructor(resourceType) {
         super();
 
-        const resource = new Sprite(Assets.texture(resourceType));
-        resource.anchor.set(0.5);
-        this.addChild(resource);
+        this._icon = new Sprite(Assets.texture(resourceType));
+        this._icon.anchor.set(0.5);
+        this.addChild(this._icon);
 
-        this._counter = new ResourceCounter();
-        this._counter.position.set(20, -20);
-        this.addChild(this._counter);
+        this._value = new ResourceValue();
+        this._value.position.set(20, -20);
+        this.addChild(this._value);
+
+        this._selected = false;
+    }
+
+    addValue(num) {
+        this._value.add(num);
+    }
+
+    toggleSelected() {
+        this._selected = !this._selected;
+
+        this._icon.scale.set(this._selected ? 1.3 : 1);
     }
 }

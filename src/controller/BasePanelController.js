@@ -1,10 +1,10 @@
-import { ControlPanelEvents } from '../events/ControlPanelEvents';
 import { utils } from 'pixi.js';
+import { PanelEvents } from '../events/PanelEvents';
 
-export class ControlPanelController extends utils.EventEmitter {
+export class BasePanelController extends utils.EventEmitter{
     /**
-     * @param {ControlPanelModel} model
-     * @param {ControlPanelView} view
+     * @param {BasePanelModel} model
+     * @param {BasePanelView} view
      */
     constructor(model, view) {
         super();
@@ -12,7 +12,7 @@ export class ControlPanelController extends utils.EventEmitter {
         this._model = model;
         this._view = view;
 
-        view.on(ControlPanelEvents.ITEM_SELECTED, this.onItemSelected, this);
+        view.on(PanelEvents.ITEM_SELECTED, this.onItemSelected, this);
     }
 
     /**
@@ -31,7 +31,12 @@ export class ControlPanelController extends utils.EventEmitter {
 
         this._view.updateSelection(prev, this._model.getSelected());
 
-        this.emit(isReset ? ControlPanelEvents.RESET_SELECTION : ControlPanelEvents.ITEM_SELECTED);
+        this.emit(isReset ? PanelEvents.RESET_SELECTION : PanelEvents.ITEM_SELECTED);
+    }
+
+    resetSelected() {
+        this._view.updateSelection(this._model.getSelected(), undefined);
+        this._model.resetSelected();
     }
 
     /**

@@ -1,4 +1,4 @@
-export class ControlPanelModel {
+export class BasePanelModel {
     /**
      * @param {string} value
      */

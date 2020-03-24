@@ -1,9 +1,10 @@
-import { Container, Graphics } from 'pixi.js';
+import { Graphics } from 'pixi.js';
 import { ControlPanelItemView } from './ControlPanelItemView';
-import { ControlPanelItems } from '../../model/ControlPanelItems';
-import { ControlPanelEvents } from '../../events/ControlPanelEvents';
+import { FieldItemTypes } from '../../model/FieldItemTypes';
+import { PanelEvents } from '../../events/PanelEvents';
+import { BasePanelView } from '../BasePanelView';
 
-export class ControlPanelView extends Container {
+export class ControlPanelView extends BasePanelView {
     constructor() {
         super();
 
@@ -18,27 +19,17 @@ export class ControlPanelView extends Container {
 
     createItems() {
         this._items = new Map();
-        Object.values(ControlPanelItems).forEach((id, index) => {
+        Object.values(FieldItemTypes).forEach((id, index) => {
             const item = new ControlPanelItemView(id);
             item.x = index * 68 + 33;
             item.interactive = true;
             item.buttonMode = true;
             item.on('pointertap', () => {
-                this.emit(ControlPanelEvents.ITEM_SELECTED, id);
+                this.emit(PanelEvents.ITEM_SELECTED, id);
             });
             this.addChild(item);
 
             this._items.set(id, item);
         });
-    }
-
-    updateSelection(prevItemId, newItemId) {
-        if (prevItemId !== undefined) {
-            this._items.get(prevItemId).toggleSelected();
-        }
-
-        if (newItemId !== undefined) {
-            this._items.get(newItemId).toggleSelected();
-        }
     }
 }

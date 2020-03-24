@@ -1,6 +1,9 @@
 import { Container, Sprite } from 'pixi.js';
 import Assets from '../../utils/Assets';
 import { gsap, Power3 } from 'gsap';
+import GameEventEmitter from '../../utils/GameEventEmitter';
+import { FieldEvents } from '../../events/FieldEvents';
+import { ResourceTypes } from '../../model/ResourceTypes';
 
 export class WheatFieldItemView extends Container {
     static GROW_TIME = 10;
@@ -41,5 +44,7 @@ export class WheatFieldItemView extends Container {
         this.interactive = false;
 
         this.startGrow();
+
+        GameEventEmitter.emit(FieldEvents.ITEM_COLLECTED, ResourceTypes.WHEAT);
     }
 }

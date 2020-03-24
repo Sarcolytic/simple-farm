@@ -3,5 +3,3 @@ export const ResourceTypes = {
     EGG: 'egg',
     MILK: 'milk',
 };
-
-export const SellableResources = [ResourceTypes.EGG, ResourceTypes.MILK];

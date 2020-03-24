@@ -45,6 +45,13 @@ export class GameView extends Container {
     }
 
     /**
+     * @return {FieldView}
+     */
+    getField() {
+        return this._field;
+    }
+
+    /**
      * @return {ControlPanelView}
      */
     getControlPanel() {
@@ -52,9 +59,9 @@ export class GameView extends Container {
     }
 
     /**
-     * @return {FieldView}
+     * @return {ResourcesPanelView}
      */
-    getField() {
-        return this._field;
+    getResourcesPanel() {
+        return this._resourcesPanel;
     }
 }

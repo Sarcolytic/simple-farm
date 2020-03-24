@@ -1,4 +1,4 @@
-export const ControlPanelItems = {
+export const FieldItemTypes = {
     WHEAT: 'wheat',
     CHICKEN: 'chicken',
     COW: 'cow',

@@ -1,6 +1,6 @@
 import { Container, Graphics, Text, TextStyle } from 'pixi.js';
 
-export class ResourceCounter extends Container {
+export class ResourceValue extends Container {
     constructor() {
         super();
 
@@ -19,5 +19,20 @@ export class ResourceCounter extends Container {
         this._value.anchor.set(0.5);
         this._value.roundPixels = true;
         this.addChild(this._value);
+
+        this._currentValue = 0;
+    }
+
+    add(num) {
+        this._currentValue += num;
+
+        this._value.text = this._currentValue.toString();
+    }
+
+    /**
+     * @return {number}
+     */
+    getCurrent() {
+        return this._currentValue;
     }
 }
